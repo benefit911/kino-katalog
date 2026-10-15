@@ -99,9 +99,9 @@ function load(q, attempt) {
     })
     .then(d => render(d.movies || []))
     .catch(() => {
-      // хостинг может просыпаться до минуты — пробуем настойчиво
-      if (attempt < 10) {
-        status.textContent = "сервер просыпается, попытка " + attempt + " из 10…";
+      // хостинг может просыпаться до минуты — ждём и пробуем снова
+      if (attempt < 20) {
+        status.textContent = "сервер просыпается, попытка " + attempt + " из 20…";
         setTimeout(() => load(q, attempt + 1), 3000);
       } else {
         status.innerHTML = 'Сервер не ответил. <span id="again" style="color:var(--btn);text-decoration:underline">Повторить</span>';
